@@ -1,1 +1,3 @@
-# Ionic React application to display real time rainfall data.
+# Rainfall Monitor
+
+-Ionic react application to display real time rainfall analysis data.
