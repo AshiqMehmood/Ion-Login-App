@@ -1,0 +1,7 @@
+{
+  "name": "Rainfall_Monitor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

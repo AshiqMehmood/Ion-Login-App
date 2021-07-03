@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Rainfall_Monitor",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
