@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { IonButton,IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem } from '@ionic/react';
+import { IonButton,IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonToast } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import firebase from '../firebase';
 
@@ -11,9 +11,15 @@ const Login: React.FC = () => {
     const history = useHistory();
     const [mobile, setMobile] = useState('98181 71799');
     const [fetchedOTP, setOTP] = useState('');
+    const [showToast, setShowToast] = useState(false);
+    const [message, setMessage] = useState('');
 
     const routeToDashboard = () => { 
        history.push('/page/Dashboard');
+    }
+    const notifyPanel = (msg:string) => {
+      setMessage(msg);
+      setShowToast(true);
     }
 
     const handleSignIn = (e:any) => {
@@ -30,10 +36,10 @@ const Login: React.FC = () => {
             //@ts-ignore
             window.confirmationResult = confirmationResult;
             // console.log('OTP has been sent !');
-            alert('OTP is sent');
+            notifyPanel('OTP is sent to your number')
             // ...
             }).catch((error) => {
-                console.log('SMS not sent');
+                notifyPanel('Message sending failed. Please try again')
             });        
     }
 
@@ -47,13 +53,17 @@ const Login: React.FC = () => {
         console.log(JSON.stringify(user)); //save response to state
         //alert('user is verified');
         //-------------------------------------on successful user verification, navigate to app dashboard 
-        routeToDashboard();
+        notifyPanel('Connection Successfull !');
+        setTimeout(() => {
+          routeToDashboard();
+        }, 1000)
         // ...
         //@ts-ignore
         }).catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
-            alert('Cannot verify OTP. Please try again');
+            //alert('Cannot verify OTP. Please try again');
+            notifyPanel('Cannot verify OTP. Please try again');
         });
     }
 
@@ -110,6 +120,12 @@ const Login: React.FC = () => {
                         Verify OTP
                 </IonButton>
              </div>
+             <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => setShowToast(false)}
+                message={message}
+                duration={1500}
+      />
                 
            </IonContent>
        </IonPage>
