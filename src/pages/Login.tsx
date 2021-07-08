@@ -1,24 +1,30 @@
 import React from 'react';
 import { IonButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useHistory } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-const Login: React.FC = () => {
-    const history = useHistory();
 
-    const handleLogin = () => {
-       history.push('/page/Dashboard');
+class Login extends React.Component<RouteComponentProps> {
+    state: any = {
+        count: 0
     }
 
-   return (
-       <IonPage>
-           <IonHeader></IonHeader>
-           <IonContent fullscreen>
-                <IonButton onClick={handleLogin}>
-                        Sign In
-                </IonButton>
-           </IonContent>
-       </IonPage>
-   ) 
+    handleLogin = () => {
+        //@ts-ignore
+       this.props.history.push('/page/Dashboard');
+    }
+
+   render() {
+    return (
+        <IonPage>
+            <IonHeader></IonHeader>
+            <IonContent fullscreen>
+                 <IonButton onClick={this.handleLogin}>
+                         Sign In
+                 </IonButton>
+            </IonContent>
+        </IonPage>
+    ) 
+   }
 }
 
-export default Login;
+export default withRouter(Login);

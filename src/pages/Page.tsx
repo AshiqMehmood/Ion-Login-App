@@ -1,13 +1,16 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useParams } from 'react-router';
 import ExploreContainer from '../components/ExploreContainer';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import './Page.css';
+import React from 'react';
 
-const Page: React.FC = () => {
+class Page extends React.Component<RouteComponentProps>  {
 
-  const { name } = useParams<{ name: string; }>();
-
-  return (
+  render() {
+    //@ts-ignore
+    const { name } =  this.props.match.params;
+    
+    return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -27,7 +30,7 @@ const Page: React.FC = () => {
         <ExploreContainer name={name} />
       </IonContent>
     </IonPage>
-  );
+  );}
 };
 
-export default Page;
+export default withRouter(Page);

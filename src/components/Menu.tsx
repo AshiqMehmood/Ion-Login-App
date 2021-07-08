@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   IonContent,
   IonIcon,
@@ -10,7 +11,7 @@ import {
   IonNote,
 } from '@ionic/react';
 
-import { useLocation } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { archiveOutline, archiveSharp,mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp } from 'ionicons/icons';
 import './Menu.css';
 
@@ -45,10 +46,9 @@ const appPages: AppPage[] = [
 
 // const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-const Menu: React.FC = () => {
-  const location = useLocation();
-
-  return (
+class Menu extends React.Component<RouteComponentProps> {
+  render(){
+    return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
@@ -57,7 +57,7 @@ const Menu: React.FC = () => {
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                <IonItem className={this.props.location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
                   <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
@@ -67,7 +67,7 @@ const Menu: React.FC = () => {
         </IonList>
       </IonContent>
     </IonMenu>
-  );
+  );}
 };
 
-export default Menu;
+export default withRouter(Menu);
