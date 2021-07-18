@@ -27,11 +27,9 @@ import './theme/variables.css';
 const App: React.FC = () => {
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
+      <IonReactRouter>   
           <Menu />
           <IonRouterOutlet id="main">
-            
              <Switch>
               <Route path="/" exact={true}>
                 <Redirect to="/login" />
@@ -39,12 +37,14 @@ const App: React.FC = () => {
               <Route path="/login" exact={true}>
                 <Login />
               </Route>
-              <Route path="/page/:name" exact={true}>
-                <Page />
-              </Route>
+              <IonSplitPane contentId="main">
+                <Route path="/page/:name" exact={true}>
+                  <Page />
+                </Route>
+               </IonSplitPane>
               </Switch>
           </IonRouterOutlet>
-        </IonSplitPane>
+       
       </IonReactRouter>
     </IonApp>
   );
